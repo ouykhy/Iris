@@ -16,6 +16,7 @@ jupyter = "^1.1.1"
 ipykernel = "^6.29.5"
 streamlit = "^1.41.1"
 pytest = "^8.3.4"
+fastapi = "^0.115.6"
 
 
 [build-system]
