@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11' # Use a supported version
+          python-version: '3.13'  # Use a supported version
 
       # Step 3: Install dependencies using Poetry
       - name: Install dependencies
@@ -51,12 +51,11 @@ jobs:
 
       # Step 8: Log in to Heroku container registry
       - name: Log in to Heroku container registry
-      run: |
-        echo $HEROKU_API_KEY | docker login --username=$HEROKU_EMAIL --password-stdin
-      registry.heroku.com
-      env:
-        HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          echo $HEROKU_API_KEY | docker login --username=$HEROKU_EMAIL --password-stdin registry.heroku.com
+        env:
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
       # Step 9: Build the Docker image
       - name: Build Docker image
