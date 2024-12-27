@@ -7,8 +7,8 @@
 import pytest
 from fastapi.testclient import TestClient
 import sys
-sys.path.append('C:/Users/oquach/Documents/OpenClassRoom/Iris/app')
-from main import app
+# sys.path.append('C:/Users/oquach/Documents/OpenClassRoom/Iris/app')
+from app.main import app
 
 
 # In[27]:

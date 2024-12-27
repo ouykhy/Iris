@@ -16,7 +16,7 @@ import numpy as np
 app = FastAPI()
 
 # Load the model when the application starts
-model = joblib.load("C:/Users/oquach/Documents/OpenClassRoom/Iris/models/trained_model.pkl")
+model = joblib.load("models/trained_model.pkl")
 
 
 # In[15]:
