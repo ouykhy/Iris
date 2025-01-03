@@ -3,25 +3,30 @@ import requests
 
 st.title("Model Inference via Heroku API")
 
-# Input for features
 features = st.text_input("Features (comma-separated):", "5.1,3.5,1.4,0.2")
 
-# Predict button
+api_url = "https://testingdeployementiris-32f29fb390ef.herokuapp.com/"
+
 if st.button("Predict"):
     try:
-        # Prepare data: Convert input string to list of floats
-        data = [list(map(float, (feature.strip() for feature in features.split(","))))]
-        # Heroku API URL
-        api_url = "https://testingdeployementiris-32f29fb390ef.herokuapp.com/"
+        feature_list = list(map(float, (feature.strip() for feature in features.split(","))))
+        data = {"features": feature_list}
 
-        # Make POST request to the API
-        response = requests.post(api_url, json=data)
+        # Try POST first
+        response = requests.post(api_url, json=data, headers={"Content-Type": "application/json"})
 
-        # Check if the request was successful
         if response.status_code == 200:
             predictions = response.json().get("predictions", [])
             st.success(f"Predictions: {predictions}")
+        elif response.status_code == 405 or response.status_code == 404:
+            # Fallback to GET if POST fails
+            response = requests.get(api_url, params={"features": features})
+            if response.status_code == 200:
+                predictions = response.json().get("predictions", [])
+                st.success(f"Predictions: {predictions}")
+            else:
+                st.error(f"GET request failed with status {response.status_code}: {response.text}")
         else:
-            st.error(f"Error: {response.status_code} - {response.text}")
+            st.error(f"POST request failed with status {response.status_code}: {response.text}")
     except Exception as e:
         st.error(f"An error occurred: {e}")

@@ -31,6 +31,3 @@ def test_predict():
     res = client.post("/predict", json=payload)
     assert res.status_code == 200
     assert "predictions" in res.json()
-
-
-
