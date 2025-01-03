@@ -12,7 +12,7 @@ if st.button("Predict"):
         # Prepare data: Convert input string to list of floats
         data = [list(map(float, (feature.strip() for feature in features.split(","))))]
         # Heroku API URL
-        api_url = "https://testingdeployementiris-32f29fb390ef.herokuapp.com/predict"
+        api_url = "https://testingdeployementiris-32f29fb390ef.herokuapp.com/"
 
         # Make POST request to the API
         response = requests.post(api_url, json=data)
